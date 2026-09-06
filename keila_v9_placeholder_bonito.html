@@ -1,0 +1,1315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F6F0E5">
+<meta name="description" content="Una cartita para Keila.">
+<meta name="color-scheme" content="light">
+<meta property="og:title" content="Para Keila">
+<meta property="og:description" content="Una cosita hecha con cariño.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext x='16' y='24' font-size='24' text-anchor='middle'%3E%F0%9F%A4%8E%3C/text%3E%3C/svg%3E">
+<title>Para Keila</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F0E5;
+  --paper-soft:#FBF7F0;
+  --paper-deep:#EFE4D5;
+  --ink:#2E3133;
+  --navy:#24364D;
+  --olive:#7D8464;
+  --yellow:#E8CC79;
+  --yellow-soft:#F3E1A8;
+  --pink:#E8C8CE;
+  --blue:#7290AE;
+  --line:rgba(36,54,77,.14);
+  --line-soft:rgba(36,54,77,.08);
+  --shadow-lg:0 26px 70px rgba(72,58,42,.14);
+  --shadow-md:0 15px 38px rgba(72,58,42,.10);
+  --shadow-sm:0 8px 20px rgba(72,58,42,.08);
+  --ease:cubic-bezier(.22,.8,.2,1);
+  --hand:"Caveat","Segoe Print","Bradley Hand",cursive;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.075;
+  z-index:500;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+button{font:inherit}
+.hidden{display:none!important}
+.serif{font-family:Georgia,"Times New Roman",serif}
+
+:is(button,[role="button"]):focus-visible{
+  outline:2px solid var(--navy);
+  outline-offset:3px;
+  border-radius:4px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+    scroll-behavior:auto!important;
+  }
+}
+
+.fade{
+  position:fixed;
+  inset:0;
+  background:var(--paper);
+  z-index:450;
+  pointer-events:none;
+  opacity:0;
+  transition:opacity 1s ease;
+}
+.fade.show{opacity:1}
+
+.page{
+  min-height:100svh;
+  position:relative;
+  width:100%;
+}
+
+/* subtle motions */
+.float-1{animation:float1 8.2s ease-in-out infinite}
+.float-2{animation:float2 10s ease-in-out infinite}
+.float-3{animation:float3 7.2s ease-in-out infinite}
+@keyframes float1{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-8px) rotate(2deg)}
+}
+@keyframes float2{
+  0%,100%{transform:translateY(0) rotate(0deg)}
+  50%{transform:translateY(-11px) rotate(-2.5deg)}
+}
+@keyframes float3{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-6px)}
+}
+@keyframes enterUp{
+  from{opacity:0;transform:translateY(24px)}
+  to{opacity:1;transform:none}
+}
+@keyframes glowSoft{
+  0%,100%{box-shadow:0 0 0 rgba(0,0,0,0)}
+  50%{box-shadow:0 0 0 12px rgba(232,204,121,.08)}
+}
+
+/* ---------- INTRO ---------- */
+#intro{
+  display:flex;
+  align-items:center;
+  padding:34px 22px 42px;
+  background:
+    radial-gradient(circle at 8% 10%, rgba(232,200,206,.25), transparent 16rem),
+    radial-gradient(circle at 94% 86%, rgba(243,225,168,.28), transparent 18rem),
+    radial-gradient(circle at 84% 16%, rgba(114,144,174,.10), transparent 18rem),
+    var(--paper);
+}
+.intro-inner{
+  width:min(1080px,100%);
+  margin:auto;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:40px;
+  align-items:center;
+}
+.kicker{
+  font-size:10px;
+  letter-spacing:.2em;
+  color:var(--olive);
+  margin-bottom:48px;
+  opacity:0;
+  animation:enterUp 1.2s var(--ease) .05s forwards;
+}
+.intro-title{
+  margin:0;
+  color:var(--navy);
+  font:400 clamp(60px,18vw,96px)/.84 Georgia,serif;
+  letter-spacing:-.055em;
+  opacity:0;
+  animation:enterUp 1.35s var(--ease) .2s forwards;
+}
+.intro-copy{
+  margin:26px 0 0;
+  max-width:36ch;
+  color:rgba(46,49,51,.74);
+  line-height:1.96;
+  font-size:15px;
+  opacity:0;
+  animation:enterUp 1.45s var(--ease) .42s forwards;
+}
+.text-link{
+  margin-top:40px;
+  border:0;
+  background:none;
+  color:var(--navy);
+  cursor:pointer;
+  padding:8px 0;
+  font-size:14px;
+  position:relative;
+  opacity:0;
+  animation:enterUp 1.45s var(--ease) .62s forwards;
+}
+.text-link::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;bottom:2px;height:1px;
+  background:var(--navy);
+  transform:scaleX(.25);
+  transform-origin:left;
+  transition:transform .55s ease;
+}
+.text-link:hover::after,
+.text-link:active::after{transform:scaleX(1)}
+.text-link span{display:inline-block;transition:transform .45s ease}
+.text-link:hover span,
+.text-link:active span{transform:translateX(6px)}
+
+.scrap{
+  position:relative;
+  height:270px;
+  opacity:0;
+  animation:enterUp 1.6s var(--ease) .55s forwards;
+}
+.polaroid{
+  position:absolute;
+  right:0;
+  top:0;
+  width:70%;
+  aspect-ratio:4/3;
+  background:var(--paper-soft);
+  padding:12px 12px 42px;
+  border:1px solid rgba(36,54,77,.08);
+  box-shadow:var(--shadow-lg);
+  transform:rotate(2.5deg);
+}
+.polaroid-image{
+  width:100%;height:100%;
+  background:
+    linear-gradient(145deg, rgba(114,144,174,.16), rgba(232,200,206,.20)),
+    #e7ddd0;
+  display:grid;place-items:center;
+  text-align:center;
+  padding:18px;
+  color:rgba(36,54,77,.54);
+  font:italic 13px Georgia,serif;
+}
+.note{
+  position:absolute;
+  left:0;
+  bottom:14px;
+  width:54%;
+  background:var(--yellow-soft);
+  color:var(--navy);
+  padding:18px 16px;
+  font:600 17px/1.5 var(--hand);
+  transform:rotate(-4deg);
+  box-shadow:var(--shadow-md);
+}
+.note::before{
+  content:"";
+  position:absolute;
+  width:66px;height:20px;
+  left:50%;top:-10px;
+  transform:translateX(-50%) rotate(2deg);
+  background:rgba(232,200,206,.78);
+}
+.star{
+  position:absolute;right:20px;top:22px;width:28px;height:28px;
+}
+.scribble{
+  position:absolute;left:18px;bottom:26px;width:80px;
+}
+.flower{
+  position:absolute;right:6%;bottom:-6px;width:86px;height:130px;
+}
+
+/* ---------- ENVELOPE ---------- */
+#envelopePage{
+  display:flex;
+  align-items:center;
+  padding:26px 18px;
+  background:
+    radial-gradient(circle at 10% 16%, rgba(243,225,168,.22), transparent 16rem),
+    radial-gradient(circle at 92% 82%, rgba(232,200,206,.24), transparent 18rem),
+    radial-gradient(circle at 50% 100%, rgba(114,144,174,.10), transparent 20rem),
+    var(--paper);
+}
+.envelope-wrap{
+  width:min(540px,95vw);
+  margin:auto;
+  text-align:center;
+}
+.stage{
+  position:relative;
+  padding:24px;
+  border-radius:34px;
+  background:rgba(255,249,240,.55);
+  border:1px solid rgba(255,255,255,.25);
+  box-shadow:0 12px 35px rgba(72,58,42,.06);
+}
+.stage::before{
+  content:"";
+  position:absolute;
+  inset:10px;
+  border:1px solid rgba(36,54,77,.05);
+  border-radius:24px;
+  pointer-events:none;
+}
+.envelope{
+  position:relative;
+  width:100%;
+  aspect-ratio:1.56/1;
+  cursor:pointer;
+  filter:drop-shadow(0 22px 34px rgba(72,58,42,.16));
+}
+.envelope:hover .seal,
+.envelope:focus-visible .seal,
+.envelope:active .seal{animation:glowSoft 2s ease infinite}
+.base-shadow{
+  position:absolute;
+  left:8%;right:8%;bottom:3%;
+  height:18px;border-radius:50%;
+  background:rgba(36,54,77,.16);
+  filter:blur(11px);
+  z-index:0;
+}
+.env-back{
+  position:absolute;
+  inset:13% 6% 8%;
+  background:linear-gradient(168deg,#faf1e6 0%,#f3ddda 100%);
+  border-radius:12px;
+  overflow:hidden;
+  z-index:1;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5);
+}
+.letter-peek{
+  position:absolute;
+  left:14%;
+  right:14%;
+  top:20%;
+  height:70%;
+  background:var(--paper-soft);
+  box-shadow:0 8px 18px rgba(72,58,42,.10);
+  padding:20px 20px 0;
+  z-index:2;
+  clip-path:polygon(0% 2%,4% 0%,9% 2.4%,14% 0%,19% 2.2%,24% 0%,29% 2.4%,34% 0%,39% 2.2%,44% 0%,49% 2.4%,54% 0%,59% 2.2%,64% 0%,69% 2.4%,74% 0%,79% 2.2%,84% 0%,89% 2.4%,94% 0%,100% 2%,100% 100%,0% 100%);
+  transition:transform 1.85s var(--ease), filter 1.85s var(--ease);
+}
+.letter-peek::before{
+  content:"K.";
+  display:block;
+  font:italic 15px Georgia,serif;
+  color:rgba(36,54,77,.28);
+}
+
+.front-left,.front-right,.front-bottom{
+  position:absolute;
+  background:linear-gradient(168deg,#f6e5da,#eeddd8);
+  z-index:4;
+}
+.front-left{
+  left:6%;bottom:8%;width:56%;height:57%;
+  clip-path:polygon(0 100%,100% 0,100% 100%);
+  box-shadow:inset 1px 0 0 rgba(255,255,255,.35);
+}
+.front-right{
+  right:6%;bottom:8%;width:56%;height:57%;
+  clip-path:polygon(0 0,100% 100%,0 100%);
+  box-shadow:inset -1px 0 0 rgba(255,255,255,.35);
+}
+.front-bottom{
+  left:6%;right:6%;bottom:8%;height:34%;
+  border-radius:0 0 12px 12px;
+  box-shadow:inset 0 -1px 0 rgba(72,58,42,.08);
+}
+.flap{
+  position:absolute;
+  left:6%;right:6%;top:13%;
+  height:50%;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  background:linear-gradient(175deg,#faf1e6 0%,#f2d9da 100%);
+  transform-origin:top center;
+  transition:transform 1.85s var(--ease), filter 1.6s ease;
+  z-index:6;
+  filter:drop-shadow(0 6px 10px rgba(72,58,42,.10));
+}
+.flap-inner{
+  position:absolute;
+  left:20%;right:20%;top:9%;
+  height:48%;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  background:rgba(255,255,255,.28);
+}
+.seal{
+  position:absolute;
+  left:50%;top:53%;
+  transform:translate(-50%,-50%);
+  width:64px;height:64px;
+  border-radius:48% 52% 45% 55%/55% 48% 52% 45%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,.28), transparent 42%),
+    linear-gradient(160deg,#2c4059,var(--navy) 60%,#1a2738);
+  color:var(--yellow-soft);
+  display:grid;place-items:center;
+  font:24px Georgia,serif;
+  box-shadow:0 3px 0 rgba(0,0,0,.08), 0 14px 22px rgba(36,54,77,.34);
+  z-index:7;
+  transition:opacity .55s ease, transform .85s ease;
+}
+.seal::before{
+  content:"";
+  position:absolute;
+  left:50%;bottom:-7px;
+  transform:translateX(-50%);
+  width:20px;height:14px;
+  border-radius:0 0 50% 50%/0 0 65% 65%;
+  background:linear-gradient(160deg,#243a52,#1a2738);
+  z-index:-1;
+}
+.seal::after{
+  content:"";
+  position:absolute; inset:7px;
+  border:1px solid rgba(243,225,168,.4);
+  border-radius:inherit;
+}
+.env-tip{
+  margin-top:18px;
+  color:rgba(46,49,51,.56);
+  font-size:12px;
+  line-height:1.7;
+}
+.envelope.open .seal{
+  opacity:0;
+  transform:translate(-50%,-75%) scale(.8);
+}
+.envelope.open .flap{
+  transform:rotateX(180deg);
+  filter:drop-shadow(0 12px 16px rgba(0,0,0,.05));
+}
+.envelope.open .letter-peek{
+  transform:translateY(-38%) scale(1.02);
+  filter:brightness(1.02);
+}
+
+/* ---------- LETTER AREA ---------- */
+#letterPage{
+  background:linear-gradient(180deg,var(--paper-soft), #fffaf3);
+}
+.letter{
+  width:min(760px,88vw);
+  margin:auto;
+  padding:11vh 0 18vh;
+}
+.letter-head{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding-bottom:22px;
+  margin-bottom:12vh;
+  border-bottom:1px solid var(--line);
+  color:var(--olive);
+  font-size:9px;
+  letter-spacing:.18em;
+}
+.block{
+  margin:0 0 17vh;
+}
+.block .word{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(18px);
+  filter:blur(4px);
+  transition:
+    opacity .7s var(--ease),
+    transform .7s var(--ease),
+    filter .7s var(--ease);
+  transition-delay:calc(var(--i,0) * 45ms);
+}
+.block.show .word{
+  opacity:1;
+  transform:none;
+  filter:blur(0);
+}
+.block.big{
+  color:var(--navy);
+  font:400 clamp(28px,8vw,48px)/1.38 Georgia,serif;
+}
+.block.small{
+  color:rgba(46,49,51,.84);
+  font:400 clamp(22px,6.2vw,34px)/1.7 Georgia,serif;
+}
+.mark{
+  position:relative;
+  z-index:1;
+  display:inline;
+}
+.mark::after{
+  content:"";
+  position:absolute;
+  left:-2%;right:-2%;bottom:.08em;
+  height:.42em;
+  background:rgba(243,225,168,.72);
+  transform:rotate(-1deg);
+  z-index:-1;
+  opacity:0;
+  transition:opacity .8s ease .5s;
+}
+.block.show .mark::after{opacity:1}
+.soft-space{height:20vh}
+
+/* ---------- RICK ---------- */
+.rick-zone{
+  min-height:96svh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:10vh 0 8vh;
+  opacity:0;
+  transform:translateY(28px);
+  filter:blur(6px);
+  transition:
+    opacity 1.8s var(--ease),
+    transform 1.8s var(--ease),
+    filter 1.8s var(--ease);
+}
+.rick-zone.show{
+  opacity:1;
+  transform:none;
+  filter:blur(0);
+}
+.video-card{
+  width:100%;
+  padding:11px 11px 48px;
+  background:#fff;
+  border:1px solid rgba(36,54,77,.10);
+  box-shadow:var(--shadow-lg);
+  transform:rotate(-.65deg);
+  position:relative;
+}
+.video-card video{
+  width:100%;
+  display:block;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  background:#111;
+}
+.video-caption{
+  position:absolute;
+  left:14px;right:14px;bottom:14px;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:10px;
+  color:rgba(46,49,51,.62);
+}
+.audio-fallback{
+  position:absolute;
+  inset:11px 11px 48px;
+  background:rgba(36,54,77,.94);
+  color:var(--paper-soft);
+  display:none;
+  place-items:center;
+  text-align:center;
+  padding:26px;
+  border:0;
+  z-index:5;
+}
+.audio-fallback b{
+  display:block;
+  font:26px Georgia,serif;
+  font-weight:400;
+  margin-bottom:8px;
+}
+.after{
+  margin-top:10vh;
+  padding-top:7vh;
+  border-top:1px solid var(--line);
+  opacity:0;
+  transform:translateY(24px);
+  filter:blur(4px);
+  transition:
+    opacity 1.35s var(--ease),
+    transform 1.35s var(--ease),
+    filter 1.35s var(--ease);
+}
+.after.show{
+  opacity:1;
+  transform:none;
+  filter:blur(0);
+}
+.after h3{
+  margin:0 0 18px;
+  color:var(--navy);
+  font:400 clamp(37px,10vw,55px)/1.08 Georgia,serif;
+}
+.after p{
+  max-width:35ch;
+  line-height:1.9;
+  color:rgba(46,49,51,.72);
+}
+.after .soft{color:#b27a86}
+
+/* ---------- REAL ---------- */
+#realPage{
+  background:
+    radial-gradient(circle at 12% 12%, rgba(232,200,206,.18), transparent 18rem),
+    radial-gradient(circle at 90% 36%, rgba(243,225,168,.22), transparent 20rem),
+    var(--paper);
+}
+.real{
+  width:min(760px,88vw);
+  margin:auto;
+  padding:12vh 0 16vh;
+}
+.real-kicker{
+  font-size:10px;
+  letter-spacing:.18em;
+  color:var(--olive);
+  margin-bottom:22px;
+}
+.real h2{
+  margin:0;
+  color:var(--navy);
+  font:400 clamp(58px,16vw,96px)/.87 Georgia,serif;
+  letter-spacing:-.05em;
+}
+.real-intro{
+  margin:30px 0 0;
+  max-width:35ch;
+  line-height:1.94;
+  color:rgba(46,49,51,.72);
+}
+.hand-note{
+  margin:12vh 0 11vh auto;
+  width:min(92%,430px);
+  background:var(--yellow-soft);
+  color:var(--navy);
+  padding:28px 24px;
+  font:600 21px/1.55 var(--hand);
+  transform:rotate(2deg);
+  box-shadow:var(--shadow-md);
+  position:relative;
+}
+.hand-note::before{
+  content:"";
+  position:absolute;
+  width:90px;height:22px;
+  left:50%;top:-11px;
+  transform:translateX(-50%) rotate(-2deg);
+  background:rgba(232,200,206,.76);
+}
+.section-label{
+  margin-bottom:18px;
+  color:var(--olive);
+  font-size:10px;
+  letter-spacing:.18em;
+}
+.real h3{
+  margin:0 0 7vh;
+  color:var(--navy);
+  font:400 clamp(42px,12vw,70px)/.98 Georgia,serif;
+  letter-spacing:-.035em;
+}
+.story{
+  border-top:1px solid var(--line);
+}
+.story-row{
+  padding:34px 0;
+  border-bottom:1px solid var(--line);
+  display:grid;
+  grid-template-columns:44px 1fr;
+  gap:16px;
+}
+.story-num{
+  color:var(--olive);
+  font:21px Georgia,serif;
+}
+.story-label{
+  color:var(--navy);
+  font-size:9px;
+  font-weight:600;
+  letter-spacing:.15em;
+  margin-bottom:9px;
+}
+.story-text{
+  margin:0;
+  color:var(--ink);
+  font:400 clamp(23px,6.2vw,33px)/1.3 Georgia,serif;
+}
+
+/* ---------- REAL LETTER ---------- */
+.real-letter-section{padding:14vh 0 8vh}
+.real-letter-intro{margin-bottom:7vh}
+.real-letter-intro p{
+  margin:0;
+  max-width:36ch;
+  line-height:1.9;
+  color:rgba(46,49,51,.7);
+}
+.real-letter-wrap{position:relative;width:100%;perspective:1400px}
+.real-letter-cover{
+  position:relative;
+  width:100%;
+  min-height:228px;
+  background:linear-gradient(168deg,#faf1e6 0%,#f3ddda 100%);
+  border-radius:16px;
+  overflow:hidden;
+  cursor:pointer;
+  box-shadow:0 18px 40px rgba(72,58,42,.14);
+  transition:transform 1s var(--ease), opacity .8s ease, filter .8s ease;
+}
+.real-letter-cover::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(28deg, transparent 49.6%, rgba(36,54,77,.06) 50%, transparent 50.4%),
+    linear-gradient(-28deg, transparent 49.6%, rgba(36,54,77,.06) 50%, transparent 50.4%);
+}
+.real-letter-cover::after{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;height:52%;
+  background:linear-gradient(175deg,#faf1e6,#f2d9da);
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  filter:drop-shadow(0 4px 8px rgba(72,58,42,.08));
+}
+.real-letter-seal{
+  position:relative;
+  z-index:2;
+  width:60px;height:60px;
+  border-radius:48% 52% 45% 55%/55% 48% 52% 45%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255,255,255,.28), transparent 42%),
+    linear-gradient(160deg,#2c4059,var(--navy) 60%,#1a2738);
+  color:var(--yellow-soft);
+  display:grid;place-items:center;
+  font:22px Georgia,serif;
+  box-shadow:0 3px 0 rgba(0,0,0,.08), 0 12px 20px rgba(36,54,77,.3);
+  margin:0 auto;
+  top:78px;
+}
+.real-letter-seal::after{
+  content:"";
+  position:absolute; inset:6px;
+  border:1px solid rgba(243,225,168,.4);
+  border-radius:inherit;
+}
+.real-letter-cover-note{
+  position:absolute;
+  left:0;right:0;bottom:24px;
+  text-align:center;
+  color:rgba(36,54,77,.62);
+  font-size:11px;
+  letter-spacing:.04em;
+  z-index:2;
+}
+.real-letter-cover:hover,
+.real-letter-cover:focus-visible{transform:translateY(-2px)}
+.real-letter-cover.opened{
+  opacity:0;
+  transform:translateY(-18px) scale(.98);
+  filter:blur(2px);
+  pointer-events:none;
+}
+.real-letter-paper{
+  margin-top:-228px;
+  position:relative;
+  background:var(--paper-soft);
+  border:1px solid rgba(36,54,77,.10);
+  border-radius:10px;
+  box-shadow:var(--shadow-lg);
+  padding:11vh 8vw 10vh;
+  transform-origin:top center;
+  transform:rotateX(-92deg) translateY(-26px);
+  opacity:0;
+  transition:
+    transform 2s var(--ease),
+    opacity 1.15s ease,
+    margin-top 1.25s ease;
+  pointer-events:none;
+}
+.real-letter-paper.opened{
+  margin-top:28px;
+  transform:rotateX(0) translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+.real-letter-paper::before{
+  content:"";
+  position:absolute;
+  top:0;bottom:0;left:38px;
+  width:1px;
+  background:rgba(232,200,206,.48);
+}
+.real-letter-date{
+  margin-bottom:8vh;
+  color:var(--olive);
+  font-size:9px;
+  letter-spacing:.18em;
+}
+.real-letter-paper h4{
+  margin:0 0 7vh;
+  color:var(--navy);
+  font:400 clamp(42px,11vw,64px)/1 Georgia,serif;
+}
+.real-letter-p{
+  margin:0 0 6vh;
+  color:rgba(46,49,51,.84);
+  font:400 clamp(20px,5.7vw,28px)/1.7 Georgia,serif;
+}
+.real-letter-p .word{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(16px);
+  filter:blur(3px);
+  transition:
+    opacity .6s var(--ease),
+    transform .6s var(--ease),
+    filter .6s var(--ease);
+  transition-delay:calc(var(--i,0) * 30ms);
+}
+.real-letter-p.show .word{
+  opacity:1;
+  transform:none;
+  filter:blur(0);
+}
+.real-letter-sign{
+  margin-top:9vh;
+  text-align:right;
+  color:var(--navy);
+  font:italic clamp(24px,7vw,34px) Georgia,serif;
+}
+.real-letter-ps{
+  margin-top:8vh;
+  padding-top:5vh;
+  border-top:1px solid var(--line);
+  color:var(--olive);
+  font-size:12px;
+  line-height:1.8;
+}
+.demo-end{
+  padding:15vh 0 6vh;
+  text-align:center;
+  color:var(--navy);
+  font:400 clamp(25px,7vw,39px)/1.58 Georgia,serif;
+}
+.demo-end small{
+  display:block;
+  margin-top:28px;
+  color:var(--olive);
+  font:10px Inter,system-ui,sans-serif;
+  letter-spacing:.08em;
+}
+
+@media(min-width:860px){
+  #intro{padding:38px 40px 48px}
+  .intro-inner{grid-template-columns:1fr .84fr;gap:92px}
+  .scrap{height:390px}
+  .polaroid{width:76%}
+  .note{width:52%}
+  .real-letter-paper{padding:10vh 82px 9vh}
+}
+</style>
+</head>
+<body>
+<div class="fade" id="fade"></div>
+
+<section id="intro" class="page">
+  <svg class="star float-1" viewBox="0 0 40 40" fill="none" aria-hidden="true" focusable="false">
+    <path d="M20 3c2 10 7 15 17 17-10 2-15 7-17 17C18 27 13 22 3 20 13 18 18 13 20 3Z" stroke="#E8CC79" stroke-width="1.8"/>
+  </svg>
+  <svg class="scribble float-2" viewBox="0 0 90 40" fill="none" aria-hidden="true" focusable="false">
+    <path d="M3 24c12-13 21 8 33-2 12-11 18 7 28-2 8-7 14-4 22-1" stroke="#7290AE" stroke-width="1.8" stroke-linecap="round"/>
+  </svg>
+  <svg class="flower float-3" viewBox="0 0 90 140" fill="none" aria-hidden="true" focusable="false">
+    <path d="M25 131c18-36 26-74 28-120" stroke="#7D8464" stroke-width="1.8"/>
+    <path d="M42 47c-15 0-24-8-28-19 14-4 26 2 28 19Z" stroke="#7D8464" stroke-width="1.8"/>
+    <path d="M50 77c14-8 27-7 36 2-8 12-21 16-36-2Z" stroke="#7D8464" stroke-width="1.8"/>
+  </svg>
+
+  <div class="intro-inner">
+    <div>
+      <div class="kicker">UNA COSITA QUE HICE PARA TI</div>
+      <h1 class="intro-title">para<br>Keila,</h1>
+      <p class="intro-copy">
+        No sabía muy bien cómo hacerte algo que se sintiera mío,
+        así que terminé haciendo esto. No es una gran cosa, pero
+        está hecho con muchísimo cariño.
+      </p>
+      <button type="button" class="text-link" onclick="goToEnvelope()">abrir <span>→</span></button>
+    </div>
+
+    <div class="scrap">
+      <div class="polaroid float-1">
+        <div class="polaroid-image">foto juntos: pendiente.<br>tenemos que arreglar eso, Kei.</div>
+      </div>
+      <div class="note float-2">sí, hice una página entera.<br>no preguntes 😭</div>
+    </div>
+  </div>
+</section>
+
+<section id="envelopePage" class="page hidden">
+  <div class="envelope-wrap">
+    <div class="stage">
+      <div class="envelope" id="envelope" onclick="openEnvelope()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openEnvelope();}" role="button" tabindex="0" aria-label="Abrir el sobre">
+        <div class="base-shadow"></div>
+        <div class="env-back"></div>
+
+        <div class="letter-peek" id="letterPeek"></div>
+
+        <div class="front-left"></div>
+        <div class="front-right"></div>
+        <div class="front-bottom"></div>
+
+        <div class="flap">
+          <div class="flap-inner"></div>
+        </div>
+
+        <div class="seal">K</div>
+      </div>
+    </div>
+    <div class="env-tip" id="envTip">toca el sobre</div>
+  </div>
+</section>
+
+<main id="letterPage" class="hidden">
+  <article class="letter">
+    <div class="letter-head">
+      <span>PARA KEILA</span>
+      <span>DE AXEL</span>
+    </div>
+
+    <p class="block big reveal">Keila,</p>
+
+    <p class="block small reveal">
+      quería hacerte algo que no fuera solamente mandarte un mensaje y ya.
+      Algo que pudieras abrir con calma y que se sintiera un poquito más especial.
+    </p>
+
+    <p class="block small reveal">
+      Me alegra muchísimo que después de tanto tiempo
+      <span class="mark">hayamos vuelto a hablar</span>.
+      Todavía me da risa pensar que nos conocíamos desde primaria y terminamos llegando hasta aquí.
+    </p>
+
+    <p class="block small reveal">
+      Hay personas que aparecen otra vez en tu vida y, sin darte cuenta,
+      terminan ocupando un lugar muchísimo más importante del que esperabas.
+    </p>
+
+    <div class="soft-space"></div>
+
+    <p class="block big reveal">
+      Y había una cosa que quería decirte desde hace rato.
+    </p>
+
+    <section class="rick-zone reveal" id="rickZone">
+      <div style="width:100%">
+        <div class="video-card">
+          <video id="rickVideo" playsinline webkit-playsinline="true" muted preload="auto" aria-label="Video sorpresa">
+            <source src="rickroll.mp4" type="video/mp4">
+          </video>
+
+          <button type="button" class="audio-fallback" id="audioFallback" onclick="fallbackPlay()" aria-label="Activar sonido y reproducir el video">
+            <span>
+              <b>toca aquí 😭</b>
+              Chrome se puso pesado con el audio.
+            </span>
+          </button>
+
+          <div class="video-caption">
+            <span>bueno...</span>
+            <span>JAJAJAJA</span>
+          </div>
+        </div>
+
+        <div class="after" id="after">
+          <h3>JAJAJA perdón 😭</h3>
+          <p>
+            Tenía que hacerlo. Pero no, no hice una página entera solamente para molestarte.
+          </p>
+          <p class="soft">
+            Lo que sigue sí va completamente en serio.
+          </p>
+          <button type="button" class="text-link" onclick="showReal()">ahora sí <span>→</span></button>
+        </div>
+      </div>
+    </section>
+  </article>
+</main>
+
+<section id="realPage" class="page hidden">
+  <div class="real">
+    <div class="real-kicker">AHORA SÍ, DE VERDAD</div>
+    <h2>para Keila,<br>de verdad.</h2>
+
+    <p class="real-intro">
+      Quería guardar aquí algunas cosas que me hacen feliz de nuestra amistad:
+      recuerdos, tonterías, cosas que adoro de tu forma de ser y otras que
+      probablemente no siempre digo con todas sus letras.
+    </p>
+
+    <div class="hand-note">
+      Qué bueno que un día se me ocurrió volver a hablarte.
+      Si no lo hubiera hecho, me habría perdido una amistad que hoy quiero muchísimo.
+    </div>
+
+    <div class="section-label">01 · UN POQUITO DE HISTORIA</div>
+    <h3>cómo terminamos aquí</h3>
+
+    <div class="story">
+      <div class="story-row">
+        <div class="story-num">01</div>
+        <div>
+          <div class="story-label">PRIMARIA</div>
+          <p class="story-text">nos conocimos. todavía no sabíamos todo el lore que iba a venir después.</p>
+        </div>
+      </div>
+
+      <div class="story-row">
+        <div class="story-num">02</div>
+        <div>
+          <div class="story-label">DESPUÉS</div>
+          <p class="story-text">cada quien siguió con su vida y dejamos de hablar por un buen rato.</p>
+        </div>
+      </div>
+
+      <div class="story-row">
+        <div class="story-num">03</div>
+        <div>
+          <div class="story-label">VACACIONES · 2026</div>
+          <p class="story-text">se me ocurrió volver a mandarte mensaje.</p>
+        </div>
+      </div>
+
+      <div class="story-row">
+        <div class="story-num">04</div>
+        <div>
+          <div class="story-label">AHORA</div>
+          <p class="story-text">y de alguna forma terminaste siendo mi mejor amiga.</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="real-letter-section">
+      <div class="real-letter-intro">
+        <div class="section-label">02 · UNA CARTA DE VERDAD</div>
+        <h3>una última cosa</h3>
+        <p>
+          Esta vez sí, sin bromas. Solo algo que quería decirte bien, Kei.
+        </p>
+      </div>
+
+      <div class="real-letter-wrap">
+        <div class="real-letter-cover" id="realLetterCover" onclick="openRealLetter()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openRealLetter();}" role="button" tabindex="0" aria-label="Abrir la carta">
+          <div class="real-letter-seal">K</div>
+          <div class="real-letter-cover-note">toca para abrir</div>
+        </div>
+
+        <article class="real-letter-paper" id="realLetterPaper">
+          <div class="real-letter-date">PARA KEILA · DE AXEL</div>
+          <h4>Kei,</h4>
+
+          <p class="real-letter-p">
+            quería hacerte esta página porque sentía que un mensaje normal se me quedaba corto.
+            Hay cosas que no siempre digo tal cual, pero sí las pienso, y una de ellas es que
+            me alegra muchísimo haber vuelto a hablar contigo.
+          </p>
+
+          <p class="real-letter-p">
+            Es bien raro pensarlo porque nos conocemos desde primaria. Durante mucho tiempo
+            simplemente fuimos dos personas que se conocían, luego cada quien siguió con su vida
+            y pasó bastante tiempo. Y de repente, en estas vacaciones, volvimos a hablar
+            y terminaste convirtiéndote en una de las personas más importantes para mí.
+          </p>
+
+          <p class="real-letter-p">
+            Kei, honestamente te quiero muchísimo. Me encanta lo divertida que eres;
+            contigo una conversación completamente normal puede terminar siendo la cosa
+            más estúpida del mundo y aun así hacerme reír un buen rato.
+          </p>
+
+          <p class="real-letter-p">
+            Pero también me gusta muchísimo lo amable que eres y tu forma de ser en general.
+            Siento que eres una persona con la que es muy fácil sentirse cómodo.
+            Puedo hablar contigo de algo serio, de alguna tontería, de algo que me guste,
+            o simplemente contarte cualquier cosa porque sí.
+          </p>
+
+          <p class="real-letter-p">
+            También me encanta que tengamos tantas cosas en común. Hay un montón de veces
+            en las que hablamos y pienso “wey, tú también”, y creo que eso hace que nuestra
+            amistad se sienta todavía más natural.
+          </p>
+
+          <p class="real-letter-p">
+            Y no sé cómo decirlo sin que suene exagerado, pero genuinamente me pareces increíble.
+            No por una sola cosa, sino por todo junto: tu humor, tu manera de tratar a la gente,
+            las cosas que te gustan, la forma en la que piensas y simplemente la persona que eres.
+          </p>
+
+          <p class="real-letter-p">
+            Creo que una de las cosas que más valoro de nuestra amistad es que no necesita
+            que esté pasando algo enorme para sentirse especial. A veces solo estamos hablando
+            de cualquier cosa y ya, pero aun así son conversaciones que disfruto muchísimo
+            simplemente porque son contigo.
+          </p>
+
+          <p class="real-letter-p">
+            Me da muchísimo gusto poder llamarte mi mejor amiga. Y todavía me parece medio increíble
+            pensar que todo esto empezó porque un día se me ocurrió volver a mandarte mensaje.
+          </p>
+
+          <p class="real-letter-p">
+            Espero que todavía nos falten un montón de conversaciones, chistes que nadie más entienda,
+            cosas innecesarias que hacer y recuerdos que todavía ni siquiera existen.
+          </p>
+
+          <p class="real-letter-p">
+            Gracias por ser tú, Kei. Gracias por hacerme reír, por estar ahí y por haber vuelto
+            a mi vida de una forma que no esperaba, pero que ahora me alegra muchísimo.
+          </p>
+
+          <p class="real-letter-p">
+            Te quiero un montón, y aunque probablemente no te lo diga todos los días,
+            quiero que sepas algo bien simple: tu amistad es muchísimo más importante para mí
+            de lo que a veces sé explicar.
+          </p>
+
+          <div class="real-letter-sign">— Axel</div>
+
+          <div class="real-letter-ps">
+            p. d. todo esto iba en serio. El Rickroll también era completamente necesario.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="demo-end">
+      y después de la carta todavía podemos meter fotos, recuerdos, secretos y pequeños detalles que sólo ustedes entiendan.
+      <small>prototipo móvil · versión 6</small>
+    </div>
+  </div>
+</section>
+
+<script>
+const intro = document.getElementById("intro");
+const envelopePage = document.getElementById("envelopePage");
+const letterPage = document.getElementById("letterPage");
+const realPage = document.getElementById("realPage");
+const fade = document.getElementById("fade");
+const video = document.getElementById("rickVideo");
+const fallback = document.getElementById("audioFallback");
+const rickZone = document.getElementById("rickZone");
+const after = document.getElementById("after");
+
+let prepared = false;
+let rickStarted = false;
+let afterShown = false;
+let realLetterOpened = false;
+
+function fadeSwap(hideEl, showEl, afterSwap){
+  fade.classList.add("show");
+  setTimeout(()=>{
+    hideEl.classList.add("hidden");
+    showEl.classList.remove("hidden");
+    window.scrollTo({top:0, behavior:"auto"});
+    if(afterSwap) afterSwap();
+    setTimeout(()=>fade.classList.remove("show"),120);
+  },560);
+}
+
+// Try to "unlock" the video via user interaction for Android/Chrome
+async function prepareRick(){
+  if(prepared) return;
+  try{
+    video.muted = false;
+    video.volume = 0;
+    await video.play();
+    prepared = true;
+  }catch(err){
+    // We'll retry on the next user interaction
+  }
+}
+
+function goToEnvelope(){
+  prepareRick();
+  fadeSwap(intro, envelopePage);
+}
+
+function openEnvelope(){
+  prepareRick();
+  const env = document.getElementById("envelope");
+  if(env.classList.contains("open")) return;
+
+  env.classList.add("open");
+  document.getElementById("envTip").textContent = "para ti, con cariño.";
+
+  setTimeout(()=>{
+    fadeSwap(envelopePage, letterPage, ()=>{
+      setTimeout(()=>{
+        initReveal();
+        initRickObserver();
+      },200);
+    });
+  },1900);
+}
+
+function wrapWordsIn(el, counter){
+  Array.from(el.childNodes).forEach(node=>{
+    if(node.nodeType === Node.TEXT_NODE){
+      if(!node.textContent.trim()) return;
+      const frag = document.createDocumentFragment();
+      node.textContent.split(/(\s+)/).forEach(tok=>{
+        if(tok === "") return;
+        if(/^\s+$/.test(tok)){
+          frag.appendChild(document.createTextNode(tok));
+        }else{
+          const span = document.createElement("span");
+          span.className = "word";
+          span.textContent = tok;
+          span.style.setProperty("--i", Math.min(counter.i, 26));
+          counter.i++;
+          frag.appendChild(span);
+        }
+      });
+      node.replaceWith(frag);
+    }else if(node.nodeType === Node.ELEMENT_NODE){
+      wrapWordsIn(node, counter);
+    }
+  });
+}
+
+function splitIntoWords(el){
+  if(el.dataset.split) return;
+  el.dataset.split = "1";
+  wrapWordsIn(el, {i:0});
+}
+
+function initReveal(){
+  const els = document.querySelectorAll(".reveal");
+  els.forEach(el=>{
+    if(el.classList.contains("block")) splitIntoWords(el);
+  });
+
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+        obs.unobserve(entry.target);
+      }
+    });
+  },{
+    threshold:.28,
+    rootMargin:"0px 0px -8% 0px"
+  });
+
+  els.forEach(el=>obs.observe(el));
+}
+
+function initRickObserver(){
+  const obs = new IntersectionObserver(async (entries)=>{
+    const entry = entries[0];
+    if(!entry.isIntersecting || entry.intersectionRatio < .72 || rickStarted) return;
+    rickStarted = true;
+    obs.disconnect();
+
+    try{
+      video.currentTime = 0;
+      video.muted = false;
+      video.volume = 1;
+      if(video.paused){
+        await video.play();
+      }
+      fallback.style.display = "none";
+      showAfterLater();
+    }catch(err){
+      fallback.style.display = "grid";
+    }
+  },{
+    threshold:[0,.25,.5,.72,.9,1]
+  });
+
+  obs.observe(rickZone);
+}
+
+function fallbackPlay(){
+  fallback.style.display = "none";
+  video.currentTime = 0;
+  video.muted = false;
+  video.volume = 1;
+  video.play();
+  showAfterLater();
+}
+
+function showAfterLater(){
+  if(afterShown) return;
+  afterShown = true;
+  setTimeout(()=>after.classList.add("show"),4800);
+}
+
+function showReal(){
+  try{video.pause()}catch(e){}
+  fadeSwap(letterPage, realPage);
+}
+
+function openRealLetter(){
+  if(realLetterOpened) return;
+  realLetterOpened = true;
+
+  const cover = document.getElementById("realLetterCover");
+  const paper = document.getElementById("realLetterPaper");
+
+  cover.classList.add("opened");
+
+  setTimeout(()=>{
+    paper.classList.add("opened");
+    setTimeout(initRealLetterReveal, 620);
+  },420);
+}
+
+function initRealLetterReveal(){
+  const paragraphs = document.querySelectorAll(".real-letter-p");
+  paragraphs.forEach(p=>splitIntoWords(p));
+
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
+        obs.unobserve(entry.target);
+      }
+    });
+  },{
+    threshold:.42,
+    rootMargin:"0px 0px -8% 0px"
+  });
+
+  paragraphs.forEach((p,i)=>{
+    setTimeout(()=>obs.observe(p), i*120);
+  });
+}
+</script>
+</body>
+</html>
